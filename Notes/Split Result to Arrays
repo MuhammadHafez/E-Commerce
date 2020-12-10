@@ -1,0 +1,17 @@
+// Split Result To Arrays
+
+    /*
+  var productGrid =[];
+  var col =[];
+  for(var i =0;i<result.length;i++){
+    col.push(result[i]);
+    
+    if(col.length == 3){
+      productGrid.push(col);
+      col = [];
+        console.log('i='+i)
+      }
+  }
+  console.log('///////////////////////////////')
+  console.log(productGrid);
+*/

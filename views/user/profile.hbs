@@ -1,0 +1,341 @@
+<input type="hidden" value="{{hasMessageError}}" id="hasMessageError">
+{{#if imageError}}
+<div class="alert alert-danger">
+    {{imageError}}
+</div>
+{{/if}}
+
+<div class="row">
+    <h1>
+        {{User.username}}
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-3 text-center">
+        <img src="{{User.image}}" class="img-thumbnail" id="Image" style="width: 250px; height: 250px; ">
+        <br><br>
+
+        <form action="uploadfile" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{Token}}">
+            <input type="file" id="file" name="myfile">
+            <div class="d-none" id="buttons">
+
+                <input type="submit" value="Save" class="btn btn-success">
+                <a href="/users/profile" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+
+
+    </div>
+    <div class="col-sm-9">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="false">My Orders</a>
+            </li>
+            {{#if User.hasAuth}}
+            <!-- All Orders-->
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="allproducts-tab" data-toggle="tab" href="#allproducts" role="tab"
+                    aria-controls="allproducts" aria-selected="false">Orders Dashboard</a>
+            </li>
+            <!-- Add Products-->
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="controlproducts-tab" data-toggle="tab" href="#controlproducts" role="tab"
+                    aria-controls="controlproducts" aria-selected="false">Products Dashboard</a>
+            </li>
+            {{/if}}
+
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container">
+
+                    <!--User Information Display Part-->
+                    <div class="row" id="rowhome">
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-bold">UserName: </p>
+                        </div>
+                        {{#if User.username}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal">{{User.username}}</p>
+                        </div>
+                        {{else}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal" style="color: red;">Please insert username</p>
+                        </div>
+                        {{/if}}
+
+                        <!-- Force next columns to break to new line -->
+                        <div class="w-100"></div>
+
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-bold">Email: </p>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal">{{User.email}}</p>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-bold">Contact: </p>
+                        </div>
+
+                        {{#if User.contact}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal">{{User.contact}}</p>
+                        </div>
+                        {{else}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal" style="color: red;">Please insert contact</p>
+                        </div>
+                        {{/if}}
+
+                        <div class="w-100"></div>
+
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-bold">Address: </p>
+                        </div>
+                        {{#if User.address}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal">{{User.address}}</p>
+                        </div>
+                        {{else}}
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal" style="color: red;">Please insert address</p>
+                        </div>
+                        {{/if}}
+
+                        <div class="w-100"></div>
+
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-bold">Password: </p>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <p class="font-weight-normal">*****************</p>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class=" col-sm-5 text-center">
+                            <br><br>
+                            <button type="button" id="updatedata" class="btn btn-primary">Update Data</button>
+                        </div>
+                    </div>
+                    <!--End of User Information Display Part-->
+
+
+                    <!--Form Update User Data-->
+                    <form id="formupdate" class="d-none" method="POST" action="updateuser" style="padding-top: 10px;">
+                        {{#each profileError }}
+                        <ul>
+                            <p class="alert alert-danger">
+                                {{this}}
+                            </p>
+                        </ul>
+                        {{/each}}
+                        <div class="form-group">
+                            <label for="UserName">Username :</label>
+                            <input type="text" class="form-control" name="username" value="{{User.username}}"
+                                placeholder="Please insert a valid Username...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email">Email :</label>
+                            <input type="email" class="form-control" name="email" value="{{User.email}}"
+                                placeholder="Please insert your Email...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Contact">Contact :</label>
+                            <input type="number" class="form-control" name="contact" value="{{User.contact}}"
+                                placeholder="Please insert a your Contact Number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Address">Address :</label>
+                            <input type="text" class="form-control" name="address" value="{{User.address}}"
+                                placeholder="Please insert a your Address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Password">Password :</label>
+                            <input type="password" class="form-control" name="password"
+                                placeholder="Please insert a Password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ConfirmPassword">Confirm Password :</label>
+                            <input type="password" class="form-control" name="confirm-password"
+                                placeholder="Please re-Enter your Password">
+                        </div>
+                        <input type="hidden" name="_csrf" value="{{Token}}">
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <a href="/users/profile" class="btn btn-danger">Cancel</a>
+                        </div>
+
+                    </form>
+                    <!--End of the Form-->
+                </div>
+            </div>
+            <!--Display Specific User Orders-->
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div style="padding-top: 30px;">
+                    {{#each userOrderList as |val index|}}
+
+                    <table class="table table-bordered text-center" style="font-weight: bold;">
+                        <thead>
+                            <tr class="table-warning">
+                                <td colspan="4">Order Number {{add @index}}</td>
+                            </tr>
+
+                            <tr class="table-active">
+                                <th scope="col">#</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product Quantity</th>
+                                <th scope="col">Product Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {{#each this.cart.selectedProduct as |val indexproduct|}}
+                            <tr>
+                                <th scope="row">{{add @indexproduct}}</th>
+                                <td>{{val.productName}}</td>
+                                <td>{{val.quantity}}</td>
+                                <td>{{val.price}}</td>
+                            </tr>
+                            {{/each}}
+                            <tr class="table-primary">
+                                <td>Total Price</td>
+                                <td colspan="3">$ {{this.orderPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    {{/each}}
+                </div>
+            </div>
+            <!--End of Display Specific User Orders-->
+
+            <!--Display All Admin Orders-->
+            {{#if User.hasAuth}}
+            <div class="tab-pane fade" id="allproducts" role="tabpanel" aria-labelledby="allproducts-tab">
+                <div style="padding-top: 30px;">
+                    <table class="table table-bordered text-center" style="font-weight: bold;">
+                        <thead>
+                            <tr class="table-active">
+                                <th scope="col">#</th>
+                                <th scope="col">Payment ID </th>
+                                <th scope="col">Contact User</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each AllOrders as |val index|}}
+                            <tr>
+                                <th scope="row">{{add @index}}</th>
+                                <td><a href="/admin/viewOrderDetails/{{val._id}}">{{val.paymentId}}</a></td>
+                                <td>{{val.contact}}</td>
+                                <td>$ {{this.orderPrice}}</td>
+                                <td> {{this.currentDate}}</td>
+                                <td> {{this.currentTime}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--End of Display All Admin Orders-->
+
+            <!--Display All Admin Control Products-->
+            <div class="tab-pane fade" id="controlproducts" role="tabpanel" aria-labelledby="controlproducts-tab">
+
+                <!---->
+                <div style="padding-top: 30px;">
+                    <div class='alert alert-success text-center'>
+                        <a href="/admin/addproduct" class="btn btn-primary" style="width: 300px;">Add New Product</a>
+                    </div>
+
+
+                    <table class="table table-bordered text-center" style="font-weight: bold;">
+                        <thead>
+                            <tr>
+
+                            </tr>
+                            <tr class="table-active">
+                                <th scope="col">#</th>
+                                <th scope="col">Product picture</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each AllProducts as |val index|}}
+                            <!--storageCapacity-->
+                            <tr>
+
+                                <td> {{add @index}}</td>
+                                <td><img src="{{val.imagePath}}" style="width: 30px; height:30px"></td>
+                                <td style="width: 250px;"> <a href="/displaydetails/{{val._id}}">{{val.productName}}</a>
+                                </td>
+                                <td>$ {{val.price}} </td>
+
+                                <td><a href="/admin/editproduct/{{val._id}}" class="btn btn-success"> Edit Product</a>
+                                </td>
+                                <td><a href="/admin/deleteProduct/{{val._id}}" class="btn btn-danger"> Delete
+                                        Product</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <hr>
+
+                </div>
+
+                ...
+            </div>
+            <!--End of Display All Admin Control Products-->
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    console.log(document.getElementById('hasMessageError').value);
+    if (document.getElementById('hasMessageError').value === "true") {
+        $('#formupdate').removeClass('d-none');
+        $('#rowhome').addClass('d-none');
+    }
+
+    document.getElementById('file').onchange = function () {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            document.getElementById('Image').src = this.result;
+            $('#file').addClass('d-none');
+            $('#buttons').removeClass('d-none');
+        }
+    }
+
+    document.getElementById('updatedata').onclick = function () {
+        $('#formupdate').removeClass('d-none');
+        $('#rowhome').addClass('d-none');
+    }  
+</script>

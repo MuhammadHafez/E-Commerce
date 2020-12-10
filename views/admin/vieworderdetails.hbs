@@ -1,0 +1,47 @@
+<div class="alert alert-success">
+   <ul>
+       <li class="font-weight-bold"> Payment ID : {{order.paymentId}}</li>
+       <li class="font-weight-bold"> Date : {{order.currentDate}}</li>
+       <li class="font-weight-bold">Time : {{order.currentTime}}</li>
+       <li class="font-weight-bold">User ID : {{order.user}} </li>
+       <li class="font-weight-bold">User Name : {{order.name}} </li>
+       <li class="font-weight-bold">User Address : {{order.address}}</li>
+       <li class="font-weight-bold">User Contact : {{order.contact}}</li>
+   </ul>
+    
+</div>
+
+
+     <div class="text-center" style="padding-top: 30px; font-weight:bold">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Product Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each order.cart.selectedProduct  as |val index|}}
+            <tr>
+                <th scope="row">{{add @index}}</th>
+                <td style="width: 250px;">
+                    <a href="/displaydetails/{{val._id}}">{{val.productName}}</a>
+                </td>
+                    
+                <td>
+                    {{val.quantity}}
+                </td>
+                <td>$ {{val.price}}</td>
+                
+            </tr>
+            {{/each}}
+            <tr class="table-primary">
+                <td colspan="1">Total Price</td>
+                <td colspan="3">$ {{order.orderPrice}}</td>
+               
+            </tr>
+        </tbody>
+    </table>
+</div>

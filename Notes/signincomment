@@ -1,0 +1,49 @@
+
+// do Sign in without PassportJS
+/*
+router.get('/signin', function(req,res,next){
+  var signinErrors = req.flash('signinError');
+  res.render('user/signin', { signinErrors: signinErrors});
+});
+
+
+router.post('/signin',[
+  check('email').not().isEmpty().withMessage('Please Enter Email...'),
+  check('email').isEmail().withMessage('Please Enter valid Email'),
+  check('password').not().isEmpty().withMessage('Please Enter passwor'),
+  check('password').isLength({min : 5}).withMessage('please Enter password more than 5 Charcter')
+],function(req,res,next){
+    var errorss = validationResult(req);
+    if(!errorss.isEmpty()){
+      var errorArray = [];
+
+      errorss.errors.forEach(element => {
+        errorArray.push(element.msg);
+      });
+
+      req.flash('signinError', errorArray);
+      res.redirect('signin');
+    }
+    else{
+      var signinuser = User({
+        email: req.body.email,
+        password: new User().hashPassword(req.body.password)
+      });
+      User.findOne({email: signinuser.email},'',function(err,result){
+        if(err){
+          console.log(err);
+        }
+        else{
+            if(!result){
+              req.flash('signinError','This mail not Signed Up');
+              res.redirect('signin');
+            }
+            else{
+              res.send(result);
+            }
+        }
+      })
+    }
+})
+
+*/

@@ -1,0 +1,69 @@
+<div class="text-center">
+    <h1> Edit Product </h1>
+</div>
+{{#each editProductError }}
+<div class="alert alert-danger">
+    {{this}}
+</div>
+{{/each}}
+
+
+<form method="POST" action="/admin/editproduct" style="padding-top: 10px;" enctype="multipart/form-data">
+    <!--Product Name-->
+    <div class="form-group">
+        <label for="productname">productname :</label>
+        <input type="text" class="form-control" name="productname" value="{{Product.productName}}" placeholder="Please insert a Product Name...">
+    </div>
+
+    <!--storageCapacity-->
+    <div class="form-group">
+        <label for="storageCapacity">storageCapacity in GB :</label>
+        <input type="number" class="form-control" name="storagecapacity" value="{{Product.information.storageCapacity}}"
+            placeholder="Please insert a storageCapacity...">
+    </div>
+
+    <!--numberOfSIM-->
+    <div class="form-group">
+        <label for="numberOfSIM">numberOfSIM :</label>
+        <input type="text" class="form-control" name="numberofsim" value="{{Product.information.numberOfSIM}}"
+             placeholder="Please insert a numberOfSIM...">
+    </div>
+
+    <!--cameraResolution-->
+    <div class="form-group">
+        <label for="cameraResolution">cameraResolution in MP :</label>
+        <input type="number" class="form-control" name="cameraresolution" value="{{Product.information.cameraResolution}}"
+            placeholder="Please insert a cameraResolution...">
+    </div>
+
+    <!--dispalySize-->
+    <div class="form-group">
+        <label for="dispalySize">dispalySize in Inch :</label>
+        <input type="text" class="form-control" name="dispalysize" value="{{Product.information.dispalySize}}"
+            placeholder="Please insert a dispalySize...">
+    </div>
+
+    <!--price-->
+    <div class="form-group">
+        <label for="price">price $:</label>
+        <input type="number" class="form-control" name="price" value="{{Product.price}}"
+             placeholder="Please insert a Product price...">
+    </div>
+
+    <!--productImage-->
+
+    <div class="form-group">
+        <label for="productImage">product Image :</label>
+        <input type="hidden" name="pastimage" value="{{Product.imagePath}}">
+        <input type="file" name="productimage" class="form-control" >
+    </div>
+
+    <input type="hidden" name="_csrf" value="{{Token}}">
+
+    <div class="text-center">
+        <input type="hidden" name="productid" value="{{Product._id}}">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/" class="btn btn-danger">Cancel</a>
+    </div>
+
+</form>

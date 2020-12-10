@@ -1,0 +1,26 @@
+<div class="col-md-4 offset-md-4" style="padding-top: 80px;">
+    <h5 class="text-center"> Sign IN</h5>
+    {{#each errors }}
+    <div class="alert alert-danger" role="alert">
+        {{this}}
+    </div>
+    {{/each}}
+    <form action="signin" method="post">
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input type="email" name="email" placeholder="Enter your Email.." class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" name="password" placeholder="Enter your Paasword.." class="form-control">
+        </div>
+        <div class="form-group">
+            <input hidden='true' type="text" name="_csrf" value="{{Token}}" class="form-control">
+            <script>
+                console.log(_csrf);
+            </script>
+        </div>
+        <button type="submit" class="btn btn-primary"> Sign In</button>
+        <p> If you don't have account before <a href="/users/signup">Signup</a></p>
+    </form>
+</div>

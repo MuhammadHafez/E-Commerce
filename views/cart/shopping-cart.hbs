@@ -1,0 +1,113 @@
+{{#if hasCart}}
+     <div class="text-center" style="padding-top: 30px; font-weight:bold">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Quantity</th>
+                <th scope="col">Product Price</th>
+                <th scope="col">Delete Product</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each userCart.selectedProduct  as |val index|}}
+            <tr>
+                <th scope="row">{{add @index}}</th>
+                <td>
+                    {{val.productName}}
+                </td>
+                    
+                <td>
+                    {{#if (checkQuantity @val.quantity)}}
+                    <a href="#" class=" btn disabled" style="margin-right: 30px;"><i class="fas fa-minus-square" ></i></a>
+                    {{else}}
+                    <a href="/decreaseProduct/{{index}}" class=" btn" style="margin-right: 30px;"><i class="fas fa-minus-square" ></i></a>
+                    {{/if}}
+                    {{val.quantity}}
+                    <a href="/increaseProduct/{{index}}" class=" btn" style="margin-left: 30px;"><i class="fas fa-plus-square" ></i></a>
+                </td>
+                <td>$ {{val.price}}</td>
+                <td>
+                    <a href="/deleteProduct/{{index}}" class=" btn btn-danger">delete <i class="fas fa-trash-alt"></i></i></a>
+                </td>
+            </tr>
+            {{/each}}
+            <tr class="table-primary">
+                <td colspan="1">Total Price</td>
+                <td colspan="3">$ {{userCart.totlaPrice}}</td>
+                <td>
+                    <a data-toggle="modal" data-target="#deleteAllProducts" class=" btn btn-danger">Delete All Products <i class="fas fa-trash-alt"></i></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <a href="/checkout" class="btn btn-success btn-lg" style="width: 200px;">CheckOut</a>
+</div>
+
+{{else}}
+    {{#if expired}}
+        <div>       
+            <h1 class="text-center"style="padding-top:200px;"> Your Shopping Cart has ExPired....</h1>
+        </div>
+    {{else}}
+        <div> 
+            <h1 class="text-center"style="padding-top:200px;"> Your Shopping Cart is Empty....</h1>
+        </div>
+    {{/if}}
+{{/if}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAllProducts" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><i class="fas fa-store-alt-slash"></i> Are You Sure</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               if you entered 'Delete' you will delete your cart and remove all products that you are selected...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <a href="/deleteAllProducts" class="btn btn-success float-right">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

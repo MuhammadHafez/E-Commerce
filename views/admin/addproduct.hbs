@@ -1,0 +1,63 @@
+<div class="text-center">
+    <h1> Add New Product </h1>
+</div>
+{{#each addProductError }}
+<div class="alert alert-danger">
+    {{this}}
+</div>
+{{/each}}
+
+<form method="POST" action="addproduct" style="padding-top: 10px;" enctype="multipart/form-data">
+    <!--Product Name-->
+    <div class="form-group">
+        <label for="productname">productname :</label>
+        <input type="text" class="form-control" name="productname" placeholder="Please insert a Product Name...">
+    </div>
+
+    <!--storageCapacity-->
+    <div class="form-group">
+        <label for="storageCapacity">storageCapacity in GB :</label>
+        <input type="number" class="form-control" name="storagecapacity"
+            placeholder="Please insert a storageCapacity...">
+    </div>
+
+    <!--numberOfSIM-->
+    <div class="form-group">
+        <label for="numberOfSIM">numberOfSIM :</label>
+        <input type="text" class="form-control" name="numberofsim" placeholder="Please insert a numberOfSIM...">
+    </div>
+
+    <!--cameraResolution-->
+    <div class="form-group">
+        <label for="cameraResolution">cameraResolution in MP :</label>
+        <input type="number" class="form-control" name="cameraresolution"
+            placeholder="Please insert a cameraResolution...">
+    </div>
+
+    <!--dispalySize-->
+    <div class="form-group">
+        <label for="dispalySize">dispalySize in Inch :</label>
+        <input type="text" class="form-control" name="dispalysize" placeholder="Please insert a dispalySize...">
+    </div>
+
+    <!--price-->
+    <div class="form-group">
+        <label for="price">price $:</label>
+        <input type="number" class="form-control" name="price" placeholder="Please insert a Product price...">
+    </div>
+
+    <!--productImage-->
+
+    <div class="form-group">
+        <label for="productImage">product Image :</label>
+        <input type="file" name="productimage" class="form-control">
+    </div>
+
+    <input type="hidden" name="_csrf" value="{{Token}}">
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="/" class="btn btn-danger">Cancel</a>
+    </div>
+
+</form>
